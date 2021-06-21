@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MaladeService extends DataService {
-
-
+  constructor(http: HttpClient) {
+    super('/malades', http);
+  }
 }

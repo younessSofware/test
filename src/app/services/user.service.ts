@@ -9,8 +9,7 @@ export class UserService extends DataService{
   constructor(http: HttpClient) {
     super('/users', http);
   }
-  getAll(_id){
-    this.url += '/getAll'
-    return super.getAll(_id);
+  getAlls(_id){
+    return this.http.get(this.url + '/getAll?_id=' + _id);
   }
 }

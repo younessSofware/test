@@ -1,11 +1,11 @@
 export class Message{
     _id: string;
     subject: string;
-    files?: File[];
-    fromName: string;
-    fromId?: string;
-    toId?: string;
-    toName: string;
+    files? = [];
+    fromDoctorId: string
+    toDoctorId: string
+    fromPatientId: string
+    toPatientId: string;
     isRead?: boolean;
     createdAt: Date;
     updatedAt: Date;

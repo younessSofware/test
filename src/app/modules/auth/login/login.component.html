@@ -105,10 +105,22 @@
           <h2 class="title">Sign in</h2>         
           <a > <img src="../../../../assets/imgs/d2.png" class="sali" alt="Girl in a jacket" width="150" height="160"></a>
           <div class="gallery">
-            <img src="../../../../assets/imgs/1.jpg" id='img' height="308" width="400">
+            <!-- <img src="../../../../assets/imgs/1.jpg" id='img' height="308" width="400"> -->
+            <webcam  [height]="300" [width]="400" 
+            (imageCapture)="handleImage($event)"
+            [imageQuality]="1"
+            [trigger]="triggerObservable"
+            #webcam>
+            </webcam>
           </div>
-          <button type="button"  class="btn solid" (click)="takeScreen('webcam')" >
-            Take Screen
+          <button type="button" [class.text-success]="success"  class="btn solid"   (click)="triggerSnapshot(webcam);" >
+            <div *ngIf="loadingCamera==true" class="spinner-border text-info" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span *ngIf="!loadingCamera && success == undefined">Take Screen</span> 
+            <span *ngIf="success" style="font-size: 30px;">
+              <i class="far fa-check-circle"></i>
+            </span>
           </button>
         </form>
       </div>

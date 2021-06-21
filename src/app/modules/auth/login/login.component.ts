@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
   valueOfButton = 'Add your face image';
   err = '';
   loading = true;
+  loadingCamera: Boolean;
   private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
   constructor( private loginService: LoginService, private router: Router){
   }
   ngOnInit(){
@@ -46,10 +49,10 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/dash');
     })
   }
-  
+  success;
   register(nom, prenom, email, password,specialisation,nomClinique ,adresseClinique){
     this.loading = false;
-    //this.user = new User(nom, prenom, email, password, specialisation,nomClinique ,adresseClinique);
+    this.user = new User(nom, prenom, email, password, specialisation,nomClinique ,adresseClinique);
     this.photos.map((photo) => {
       this.user.photos.push(photo);
     })
@@ -73,7 +76,10 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-
+ 
+  handleImage(event){
+    this.test(event._imageAsDataUrl);
+  }
   selectFiles(target){
     this.photos = [];
     const files = target.files;
@@ -86,20 +92,21 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+  public triggerSnapshot(webcam): void {
+    this.trigger.next();
+    webcam.video.nativeElement.pause();
+    webcam.mediaStream.getTracks().forEach(track => track.stop())
+  }
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
 
-  takeScreen(webcam?){
-    // webcam.video.nativeElement.pause();
-    // const canvas = document.createElement("canvas");
-    // // scale the canvas accordingly
-    // canvas.width = webcam.video.nativeElement.videoWidth;
-    // canvas.height = webcam.video.nativeElement.videoHeight;
-    // // draw the video at that frame
-    // canvas.getContext('2d')
-    //   .drawImage(webcam.video.nativeElement, 0, 0, canvas.width, canvas.height);
-    // // convert it to a usable data URL
-    let img = document.getElementById('img');
-
-    const blob = this.dataURItoBlob(this.getDataUrl(img));
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.nextWebcam.asObservable();
+  }
+  test(data64){
+    this.loadingCamera = true;
+    const blob = this.dataURItoBlob(data64);
     this.loginService.detectFaceByCamera(blob)
     .subscribe((res: any) => {
       if(res.lenght == 0){
@@ -107,9 +114,14 @@ export class LoginComponent implements OnInit {
       }else{
         this.loginService.signinByCamera(res[0].faceId)
         .subscribe((data: any) => {
+          this.loadingCamera = false;
           if(data.token){
+            this.success = true
             localStorage.setItem('token', data.token);
           }
+        }, err => {
+          this.success = false
+          this.loadingCamera = false;
         })
       }
     }, err => {

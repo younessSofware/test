@@ -1,0 +1,52 @@
+<app-sidebar></app-sidebar>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <span class="dashboard">Pharmacie</span>
+      </div>
+      
+      <div class="profile-details">
+      <img src="../../../../assets/imgs/h1.jpg" alt="" >
+        <span class="admin_name">Dr {{ user.nom}} </span>
+        <i class='bx bx-chevron-down' ></i>
+      </div>
+    </nav>
+    <div class="home-content" >
+      <div class=" p-2 p-sm-5" [class.d-flex]="!dataLoading" [class.justify-content-center]="!dataLoading" [class.align-items-center]="!dataLoading">
+        <!-- <div [hidden]="dataLoading" class="spinner-border text-primary" role="status">
+          <span class="sr-only" style="font-size: 5rem;">Loading...</span>
+        </div> -->
+        <form class="w-100" (ngSubmit)="submit()"   >
+          <label for="malade" class="p-2"> Select Malade</label>
+          <select #malade  class="form-control w-100 mb-3 p-2" name="malade" id="malade"
+          (change)="selectMalade(malade)" >
+            <option>...</option>
+            <option *ngFor="let malade of malades" [value]="malade._id">{{malade.nom}}</option>
+          </select>
+          <label for="malade" class="p-2"> Select patient</label>
+          <select #patient  class="form-control w-100 mb-3 p-2" name="patient" id="patient"
+          (change)="selectPatient(patient)" >
+            <option>...</option>
+            <option *ngFor="let patient of patients" [value]="patient._id">
+              {{ patient.nom + ' ' + patient.prenom }}
+            </option>
+          </select>
+          <label for="medicament" class="p-2"> Select Medicaments</label>
+          <select  (change)="selectMedicament(medicament)"  #medicament class="form-control w-100 p-2" name="medicament" id="medicament">
+            <option >...</option>
+            <option *ngFor="let medicament of getMedicament(malade.value)" [value]="medicament" >{{ medicament }}</option>
+          </select>
+            <ul class="list-group p-2 my-2" *ngFor="let medicament of medicaments; let index = index">
+              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                {{ medicament }}
+                <span style="font-size: 20px;" class="cursor-pointer" (click)="this.medicaments.splice(index, 1)">
+                  <i class="far fa-times-circle"></i>
+                </span>
+              </li>
+            </ul>
+          <button type="submit" class="btn btn-primary w-100 btn-lg mt-4 p-2">
+             Download
+          </button>
+        </form>
+      </div>
+    </div>

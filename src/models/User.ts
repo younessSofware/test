@@ -15,13 +15,13 @@ export class User {
     consultations: Consultation[];
     patients: Patient[];
     malades: Malade[];
-    // constructor(nom, prenom, email, password, specialisation,nomClinique ,adresseClinique){
-    //     this.nom = nom;
-    //     this.prenom = prenom;
-    //     this.email = email;
-    //     this.password = password;
-    //     this.specialisation = specialisation;
-    //     this.nom_Clinique = nomClinique;
-    //     this.adresseClinique = adresseClinique;
-    // }
+    constructor(nom, prenom, email, password, specialisation,nomClinique ,adresseClinique){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.password = password;
+        this.specialisation = specialisation;
+        this.nom_Clinique = nomClinique;
+        this.adresseClinique = adresseClinique;
+    }
 }

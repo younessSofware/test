@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-pdf',
@@ -10,6 +10,7 @@ export class PdfComponent implements OnInit {
   @Input() patientName;
   @Input() etat;
   @Input() maladeName;
+  @Output() terminateDownload = new EventEmitter();
   date;
   constructor() { }
 
@@ -32,7 +33,8 @@ export class PdfComponent implements OnInit {
     };
     //const child = content.childNodes[4].childNodes[3].childNodes[0];
     //content.childNodes[4].childNodes[3].removeChild(content.childNodes[4].childNodes[3].childNodes[0]);
-    const wait = html2pdf().from(content).toImg().set(options).then(() => {
+    const wait = html2pdf().from(content).toImg().set(options).then((res) => {
+      console.log(res);
       //content.childNodes[4].childNodes[3].appendChild(child);
       wait.save();
     });

@@ -1,3 +1,4 @@
+import { TraitementMaladeComponent } from './modules/dashboard/traitement-malade/traitement-malade.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { NgModule } from '@angular/core';

@@ -1,86 +1,9 @@
-  <div class="sidebar">
-    <div class="logo-details">
-      <i class='bx bxl-c-plus-plus'></i>
-      <span class="logo_name">Tabibi </span>
-    </div>
-    <ul class="nav-links">
-        <li>          
-          <a  class="active">
-          <i class='bx bx-grid-alt' ></i>
-           <span class="links_name">Dashboard</span>
-          </a>
-
-
-
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-box' ></i>
-            <span class="links_name">Les Patients</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-list-ul' ></i>
-            <span class="links_name">Pharmacie</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-pie-chart-alt-2' ></i>
-            <span class="links_name">Analytics</span>
-          </a>
-        </li>
-        <li>
-          <a>
-         <i class='bx bx-coin-stack' ></i>
-            <span class="links_name">Mon Profil</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-book-alt' ></i>
-            <span class="links_name">Ma biblio</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-user' ></i>
-            <span class="links_name">Team</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-message' ></i>
-            <span class="links_name">Messages</span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-heart' ></i>
-            <span class="links_name">Enovations dommaine </span>
-          </a>
-        </li>
-        <li>
-          <a >
-            <i class='bx bx-cog' ></i>
-            <span class="links_name">Setting</span>
-          </a>
-        </li>
-        <li class="log_out">
-          <a>
-            <i class='bx bx-log-out'></i>
-            <span class="links_name">Log out</span>
-          </a>
-        </li>
-      </ul>
-  </div>
+<app-sidebar></app-sidebar>
   <section class="home-section">
     <nav>
     <a>
       <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Dashboard</span>
+        <span class="dashboard">Traitement</span>
       </div>
     </a>
       <div class="profile-details">
@@ -208,10 +131,10 @@ $(document).ready(function(){
         <button [disabled]="!(this.list_images_selected.length && checkeds.length)" (click)="lancerPrediction()"  type="button" class="btn btn-outline-success btn-lg py-3 m-3 px-4">Lancer Prediction</button>
         <button (click)="downloadRapport()" [disabled]="!(this.prediction && checkeds.length)" type="button"  class="btn btn-outline-primary btn-lg py-3 m-3 px-4">Download Rapport</button>
         <button (click)="creerOrdonnance()" [disabled]="!(this.prediction && checkeds.length)" type="button" class="btn btn-outline-success btn-lg py-3 m-3 px-4">Creer Ordonnance</button>
-        <button (click)="envoyerRapport()" [disabled]="!(this.prediction && checkeds.length)" type="button" class="btn btn-outline-primary btn-lg py-3 m-3 px-4">Envoyer le Rapport</button>
+        <button (click)="envoyerRapport()" [disabled]="!(this.rapportDownload)" type="button" class="btn btn-outline-primary btn-lg py-3 m-3 px-4">Envoyer le Rapport</button>
       </section>
   </section>
-  <app-pdf hidden style="opacity: 0; position: absolute;" *ngIf="download" [doctorName]="user.nom + ' ' + user.prenom"
+  <app-pdf (terminateDownload)="runDownload()"  hidden style="opacity: 0; position: absolute;" *ngIf="download" [doctorName]="user.nom + ' ' + user.prenom"
   [patientName]="this.checkeds[0].nom + ' ' +this.checkeds[0].prenom "
   [etat]="this.prediction.etat" [maladeName]="nomOfMalade"></app-pdf>
 
