@@ -1,6 +1,7 @@
 import { Patient } from './../../../../models/Patient';
 import { Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Infermerie } from 'src/models/Infermeri';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -8,9 +9,11 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent implements OnInit {
   @ViewChild('modalData', { static: true }) modalData: ElementRef;
-  @Input() patient;
-  @Input() patientDeleted;
-  @Output() deletePatient = new EventEmitter();
+  @Input() element;
+  @Input() type;
+  @Input() elementDeleted;
+
+  @Output() deleteElement = new EventEmitter();
   @Output() closeModel = new EventEmitter();
   @Output() saveModel = new EventEmitter();
   constructor(private modalService: NgbModal) { }
@@ -19,8 +22,13 @@ export class ModalComponent implements OnInit {
     this.triggerModal()
   }
   triggerModal() {
-    if(!this.patient)
-    this.patient = new Patient('','','','', '', '', '')
+    if(!this.element){
+      if(this.type == 'patient'){
+        this.element = new Patient('','','','', '', '', '')
+      }else{
+        this.element = new Infermerie('','','','', '', '', '')
+      }
+    }
     const content = this.modalData;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModel.emit()
@@ -40,17 +48,17 @@ export class ModalComponent implements OnInit {
   }
 
   save(nom, prenom, email, phone){
-    const n_patient = {
+    const n_element = {
       nom: nom,prenom: prenom, email: email, phone: phone
     };
-    if(this.patient._id && this.patient._id.length){
-      n_patient['_id'] = this.patient._id;
+    if(this.element._id && this.element._id.length){
+      n_element['_id'] = this.element._id;
     }
-    this.saveModel.emit(n_patient);
+    this.saveModel.emit(n_element);
   }
 
   deleteP(){
-    this.deletePatient.emit();
+    this.deleteElement.emit();
   }
 
 }

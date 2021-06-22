@@ -45,9 +45,19 @@ export class LoginComponent implements OnInit {
     .subscribe((res: any) => {
       this.loadingSignIn = true;
       localStorage.setItem('token', res.token);
+      res.user.photos[0].data = 'data:image/png;base64,' + this.arrayBufferToBase64(res.user.photos[0].data);
       localStorage.setItem('user', JSON.stringify(res.user));
       this.router.navigateByUrl('/dash');
     })
+  }
+  arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
   }
   success;
   register(nom, prenom, email, password,specialisation,nomClinique ,adresseClinique){
@@ -104,6 +114,7 @@ export class LoginComponent implements OnInit {
   public get nextWebcamObservable(): Observable<boolean|string> {
     return this.nextWebcam.asObservable();
   }
+  errCamera = false
   test(data64){
     this.loadingCamera = true;
     const blob = this.dataURItoBlob(data64);
@@ -118,6 +129,9 @@ export class LoginComponent implements OnInit {
           if(data.token){
             this.success = true
             localStorage.setItem('token', data.token);
+            data.user.photos[0].data = 'data:image/png;base64,' + this.arrayBufferToBase64(data.user.photos[0].data);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            this.router.navigateByUrl('/dash');
           }
         }, err => {
           this.success = false

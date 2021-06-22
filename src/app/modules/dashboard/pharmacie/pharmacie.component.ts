@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pharmacie.component.scss']
 })
 export class PharmacieComponent implements OnInit {
-  user: User;
+  user;
   dataLoading = false;
   malades = [];
   patients = [];

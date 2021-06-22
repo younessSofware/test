@@ -1,0 +1,50 @@
+<app-sidebar></app-sidebar>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <span class="dashboard">Profile</span>
+      </div>
+      
+      <div class="profile-details">
+      <img  [src]="this.user.photos[0].data" alt="" >
+        <span class="admin_name">Dr {{ user.nom}} </span>
+        <i class='bx bx-chevron-down' ></i>
+      </div>
+    </nav>
+    <div class="home-content" >
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center text-center  py-5">
+                        <img class="rounded-circle mt-5" width="150px"  [src]="this.user.photos[0].data">
+                        <span class="font-weight-bold">{{ user.nom }}</span>
+                        <span class="text-black-50"> {{ user.email  }}</span><span> </span>
+                    </div>
+                </div>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile Settings</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6 px-2">
+                                <label class="labels">Nom</label>
+                                <input type="text" class="form-control p-2 px-3" placeholder="nom" [value]="user.nom"></div>
+                            <div class="col-md-6 px-2">
+                                <label class="labels">Prenom</label>
+                                <input type="text" class="form-control p-2 px-3" [value]="user.prenom" placeholder="prenom">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Nom Clinique</label><input type="text" class="form-control p-2 px-3" placeholder="Nom clinique" [value]="user.nom_Clinique"></div>
+                            <div class="col-md-12"><label class="labels">adresse Clinique</label><input type="text" class="form-control p-2 px-3" placeholder="address clinique" [value]="user.adresseClinique"></div>
+                            <div class="col-md-12"><label class="labels">specialisation</label><input type="text" class="form-control p-2 px-3" placeholder="specialisation" [value]="user.specialisation"></div>
+                            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control py-2 px-3" placeholder="enter email id" [value]="user.email"></div>
+                        </div> 
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-primary profile-button w-100 py-2" type="button">Save Profile</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./paients.component.scss']
 })
 export class PaientsComponent implements OnInit {
-  user: User;
+  user;
   addPatient = false;
 
   patients: Patient[] = [];

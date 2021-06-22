@@ -12,14 +12,17 @@ import { Date } from 'core-js';
   styleUrls: ['./home-content.component.scss']
 })
 export class HomeContentComponent implements OnInit {
-  user: User;
+  user;
   malades: Malade[];
   mesPatients = [];
   download = false;
+  src;
   constructor(private userService: UserService, private patientService: PatientService) { 
   }
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'))
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.src = this.user.photos[0].data;
+    console.log(this.src.length)
     this.getAll();
   }
   getAll(){

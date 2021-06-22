@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 export class TraitementMaladeComponent implements OnInit {
   nomOfMalade: any;
   patients = [];
-  user: User;
+  user;
   checkeds = [];
   list_images_selected = [];
   prediction: any;

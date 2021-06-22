@@ -14,6 +14,9 @@ import { PharmacieComponent } from './pharmacie/pharmacie.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BiblioComponent } from './biblio/biblio.component';
 import { ModalComponent } from './modal/modal.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AnalyticComponent } from './analytic/analytic.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 
@@ -29,13 +32,16 @@ import { ModalComponent } from './modal/modal.component';
     PharmacieComponent,
     SidebarComponent,
     BiblioComponent,
-    ModalComponent
+    ModalComponent,
+    ProfileComponent,
+    AnalyticComponent
   ],
   imports: [
     CommonModule,
     PipesModule,
     DashboardRoutingModule,
-    RouterModule
+    RouterModule,
+    HighchartsChartModule,
   ]
 })
 export class DashboardModule { }

@@ -1,3 +1,6 @@
+import { AuthGuard } from './../../guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { AnalyticComponent } from './analytic/analytic.component';
 import { BiblioComponent } from './biblio/biblio.component';
 import { PaientsComponent } from './paients/paients.component';
 import { TeamComponent } from './team/team.component';
@@ -12,30 +15,48 @@ const routes: Routes = [
   {
     path : '',
     component : DashboardComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'messages',
     component : MessagesComponent,
+    canActivate : [AuthGuard]
+
   },
   {
     path : 'traitementMalade',
     component : TraitementMaladeComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'pharmacie',
     component : PharmacieComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'team',
     component : TeamComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'patients',
     component : PaientsComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'biblio',
     component : BiblioComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path : 'analytic',
+    component : AnalyticComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate : [AuthGuard]
   }
 ];
 

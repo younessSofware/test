@@ -1,43 +1,50 @@
 <ng-template #modalData let-modal>
   <div class="modal-header">
-    <h4 *ngIf="!patientDeleted" class="modal-title" id="modal-basic-title"> {{ patient.nom.length ? 'Edit' : 'Add' }} Patient</h4>
-    <h4 *ngIf="patientDeleted" class="modal-title" id="modal-basic-title"> Delete Patient</h4>
+    <h4 *ngIf="!elementDeleted" class="modal-title" id="modal-basic-title"> {{ element.nom.length ? 'Edit' : 'Add' }} {{ type }}</h4>
+    <h4 *ngIf="elementDeleted" class="modal-title" id="modal-basic-title"> Delete {{ type }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click');">
       <span aria-hidden="true">×</span>
     </button>
   </div>
   <div class="modal-body">
-      <div *ngIf="!patientDeleted">
+      <div *ngIf="!elementDeleted">
         <div class="form-group">
             <label>Nom</label>
-            <input #nom [value]="patient.nom" type="text" class="form-control" required>
+            <input #nom [value]="element.nom" type="text" class="form-control" required>
         </div>
         <div class="form-group">
             <label>Prenom</label>
-            <input #prenom [value]="patient.prenom" type="text" class="form-control" required>
+            <input #prenom [value]="element.prenom" type="text" class="form-control" required>
         </div>
         <div class="form-group">
             <label>Email</label>
-            <input #email [value]="patient.email" type="email" class="form-control" required>
+            <input #email [value]="element.email" type="email" class="form-control" required>
         </div>
         <div class="form-group">
             <label>Phone</label>
-            <input #phone [value]="patient.phone" type="text" class="form-control" required>
+            <input #phone [value]="element.phone" type="text" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button> 
+            <button *ngIf="!elementDeleted" type="button" class="btn btn-primary"
+            (click)="save(nom.value, prenom.value, email.value, phone.value); modal.close('Ok click')">
+            Save
+             </button>
+             <button *ngIf="elementDeleted" type="button" class="btn btn-success"
+             (click)="deleteP(); modal.close('Ok click')">
+             Delete
+              </button>
         </div>
       </div>
-      <div *ngIf="patientDeleted">
-        <p><strong>Are you sure you want to delete <span class="text-primary">"{{patientDeleted.nom + ' ' + patientDeleted.prenom }}"</span> profile?</strong></p>
+      <div *ngIf="elementDeleted">
+        <p><strong>Are you sure you want to delete <span class="text-primary">"{{elementDeleted.nom + ' ' + elementDeleted.prenom }}"</span> profile?</strong></p>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button> 
+             <button *ngIf="elementDeleted" type="button" class="btn btn-success"
+             (click)="deleteP(); modal.close('Ok click')">
+             Delete
+              </button>
+        </div>
       </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
-    <button *ngIf="!patientDeleted" type="button" class="btn btn-primary"
-    (click)="save(nom.value, prenom.value, email.value, phone.value); modal.close('Ok click')">
-    Save
-     </button>
-     <button *ngIf="patientDeleted" type="button" class="btn btn-success"
-     (click)="deleteP(); modal.close('Ok click')">
-     Delete
-      </button>
   </div>
 </ng-template>

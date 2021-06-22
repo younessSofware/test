@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./biblio.component.scss']
 })
 export class BiblioComponent implements OnInit {
-  user: User
+  user
   files = [];
   constructor() {}
 

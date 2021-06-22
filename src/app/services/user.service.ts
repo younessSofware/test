@@ -12,4 +12,7 @@ export class UserService extends DataService{
   getAlls(_id){
     return this.http.get(this.url + '/getAll?_id=' + _id);
   }
+  getUser(_id){
+    return this.http.get(this.url + '/getUser?_id=' + _id); 
+  }
 }
