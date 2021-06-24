@@ -68,22 +68,28 @@ export class LoginComponent implements OnInit {
     })
     let faceids = [];
     this.err = '';
-    this.loginService.upload(this.user.photos).subscribe((res :any) => {
-      if(res.faceIds){
-        faceids = res.faceIds;
-        this.user.faceIds = faceids;
-        this.loginService.signup(this.user)
-        .subscribe((res: any) => {
+    let reader = new FileReader();
+    let blob;
+    const file = this.user.photos[0];
+    file.arrayBuffer().then(arrayBuffer => {
+      let blob = new Blob([new Uint8Array(arrayBuffer)], {type: file.type });
+      this.loginService.upload(blob).subscribe((res :any) => {
+        if(res.length){
+          faceids = res;
+          this.user.faceIds = faceids;
+          this.loginService.signup(this.user)
+          .subscribe((res: any) => {
+            this.loading = true;
+            console.log(res);
+            document.getElementById('sign-in-btn').click();
+          }, err => {
+            this.loading = true;
+          });
+        }else{
+          this.err =  "You cannot detect a face in your images";
           this.loading = true;
-          console.log(res);
-          document.getElementById('sign-in-btn').click();
-        }, err => {
-          this.loading = true;
-        });
-      }else{
-        this.err =  "You cannot detect a face in your images";
-        this.loading = true;
-      }
+        }
+      })
     })
   }
  
